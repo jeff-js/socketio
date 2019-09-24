@@ -63,6 +63,14 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('join room', (room) => {
+    socket.join(room);
+  });
+
+  socket.on('print', (model) => {
+    io.sockets.in(model.room).emit('message', model.data);
+  });
+
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     if (addedUser) {
